@@ -20,7 +20,7 @@ package com.blt.components
 		private static var frame		: uint;
 		private static var id			: String;
 		private static var today		: Number;
-		private static var defaultDate	: Object;
+		private static var defaultDate	        : Object;
 		
 		
 		public static function addDate( _year:int, _month:int, _day:int, _id:String = "", _frame:uint = 0 ):void 
