@@ -1,0 +1,101 @@
+# Build and Release Folders
+bin/
+bin-debug/
+bin-release/
+
+# Other files and folders
+.settings/
+
+# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+# should NOT be excluded as they contain compiler settings and other important
+# information for Eclipse / Flash Builder.
+
+package com.blt.components
+{
+	
+	public class TuneIn
+	{
+		
+		private static var dates 		: Array;	 
+		private static var frame		: uint;
+		private static var id			: String;
+		private static var today		: Number;
+		private static var defaultDate	: Object;
+		
+		
+		public static function addDate( _year:int, _month:int, _day:int, _id:String = "", _frame:uint = 0 ):void 
+		{
+			if ( !dates ) dates = [];
+			
+			var date:Number = new Date( _year, _month, _day ).time;
+			var dateObj:Object = { date:date, frame:_frame, id:_id };
+			
+			dates.push( dateObj );					
+		}
+		
+		
+		public static function parseDate():void 
+		{
+			if ( !today ) today = new Date().time;
+			
+			dates.sortOn( "date", Array.NUMERIC | Array.DESCENDING );		
+			
+			var length:uint = dates.length;
+			for ( var i:uint = 0; i < length; i++ ) 
+			{
+				if ( today >= dates[i].date )
+				{
+					id = dates[i].id;
+					frame = dates[i].frame;
+					break;
+				}
+			}						
+		}
+		
+		
+		public static function get currentFrame():uint
+		{
+			return frame;
+		}
+		
+		
+		public static function get currentId():String
+		{
+			return id;
+		}
+		
+		
+		public static function setTestDateByDate( _year:int, _month:int, _day:int ):void 
+		{
+			today = new Date( _year, ( _month - 1 ), _day ).time;			
+		}
+		
+		
+		public static function setTestDateByID( _id:String ):void 
+		{
+			var date:Object;
+			for each ( date in dates )
+			{
+				if ( date.id == _id ) 
+				{
+					today = date.date;
+					break;
+				}
+			}			
+		}
+		
+		
+		public static function setTestDateByFRAME( _frame:int ):void 
+		{
+			var date:Object;
+			for each ( date in dates )
+			{
+				if ( date.frame == _frame ) 
+				{
+					today = date.date;
+					break;
+				}
+			}			
+		}			
+	}
+}
