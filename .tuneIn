@@ -16,7 +16,7 @@ package com.blt.components
 	public class TuneIn
 	{
 		
-		private static var dates 		: Array;	 
+		private static var myDates 		: Array;	 
 		private static var frame		: uint;
 		private static var id			: String;
 		private static var today		: Number;
@@ -25,7 +25,7 @@ package com.blt.components
 		
 		public static function addDate( _year:int, _month:int, _day:int, _id:String = "", _frame:uint = 0 ):void 
 		{
-			if ( !dates ) dates = [];
+			if ( !myDates ) myDates = [];
 			
 			var date:Number = new Date( _year, _month, _day ).time;
 			var dateObj:Object = { date:date, frame:_frame, id:_id };
@@ -38,15 +38,15 @@ package com.blt.components
 		{
 			if ( !today ) today = new Date().time;
 			
-			dates.sortOn( "date", Array.NUMERIC | Array.DESCENDING );		
+			myDates.sortOn( "date", Array.NUMERIC | Array.DESCENDING );		
 			
-			var length:uint = dates.length;
+			var length:uint = myDates.length;
 			for ( var i:uint = 0; i < length; i++ ) 
 			{
-				if ( today >= dates[i].date )
+				if ( today >= myDates[i].date )
 				{
-					id = dates[i].id;
-					frame = dates[i].frame;
+					id = myDates[i].id;
+					frame = myDates[i].frame;
 					break;
 				}
 			}						
@@ -74,7 +74,7 @@ package com.blt.components
 		public static function setTestDateByID( _id:String ):void 
 		{
 			var date:Object;
-			for each ( date in dates )
+			for each ( date in myDates )
 			{
 				if ( date.id == _id ) 
 				{
